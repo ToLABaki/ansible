@@ -1,0 +1,43 @@
+commit 97f187e46ee97bb1419ccfb3da7bb00ff0850675
+Author: gkiagia <gkiagia@idea.tolabaki.gr>
+Date:   Tue Oct 9 22:02:33 2012 +0300
+
+    Disallow login for 'user'
+
+diff --git a/pam.d/login b/pam.d/login
+index 1c8af15..069f5c7 100644
+--- a/pam.d/login
++++ b/pam.d/login
+@@ -70,7 +70,7 @@ auth       optional   pam_group.so
+ # Uncomment and edit /etc/security/access.conf if you need to
+ # set access limits.
+ # (Replaces /etc/login.access file)
+-# account  required       pam_access.so
++account  required       pam_access.so
+
+ # Sets up user limits according to /etc/security/limits.conf
+ # (Replaces the use of /etc/limits in old login)
+diff --git a/pam.d/sshd b/pam.d/sshd
+index c108cdf..30f5b8e 100644
+--- a/pam.d/sshd
++++ b/pam.d/sshd
+@@ -15,7 +15,7 @@ account    required     pam_nologin.so
+
+ # Uncomment and edit /etc/security/access.conf if you need to set complex
+ # access limits that are hard to express in sshd_config.
+-# account  required     pam_access.so
++account  required     pam_access.so
+
+ # Standard Un*x authorization.
+ @include common-account
+diff --git a/security/access.conf b/security/access.conf
+index 74c5fbe..29347ed 100644
+--- a/security/access.conf
++++ b/security/access.conf
+@@ -1,3 +1,6 @@
++- : user : ALL
++
++
+ # Login access control table.
+ #
+ # Comment line must start with "#", no space at front.
