@@ -5,19 +5,39 @@
 - stat: path=/usr/local/share/ca-certificates/cacert-class3.crt
   register: class3
 
+- stat: path=/etc/nslcd.conf
+  register: nslcd
+
+- stat: path=/etc/nsswitch.conf
+  register: nsswitch
+
+- stat: path=/etc/idmapd.conf
+  register: idmapd
+
 - name: Install CACert root certificate
-  get_url: url={{http://www.cacert.org/certs/root.crt}} dest={{/usr/local/share/ca-certificates/cacert-root.crt}}
+  get_url: url=http://www.cacert.org/certs/root.crt dest=/usr/local/share/ca-certificates/cacert-root.crt
   when: not root.stat.exists
   notify:
     - Update certificates
 
 - name: Install CACert class3 certificate
-  get_url: url={{http://www.cacert.org/certs/class3.crt}} dest={{/usr/local/share/ca-certificates/cacert-class3.crt}}
+  get_url: url=http://www.cacert.org/certs/class3.crt dest=/usr/local/share/ca-certificates/cacert-class3.crt
   when: not class3.stat.exists
   notify:
     - Update certificates
 
 - name: Install packages
-  apt:
-    pkg: nslcd libpam-ldapd libnss-ldapd
-    state: latest
+  apt: pkg={{item}} state=latest
+  with_items:
+    - nslcd
+    - libpam-ldapd
+    - libnss-ldapd
+
+- name: Copy nslcd configuration
+  copy: src=nslcd.conf dest=/etc/nslcd.conf
+
+- name: Copy nsswitch configuration
+  copy: src=nsswitch.conf dest=/etc/nsswitch.conf
+
+- name: Copy idmapd configuration
+  copy: src=idmapd.conf dest=/etc/idmapd.conf
