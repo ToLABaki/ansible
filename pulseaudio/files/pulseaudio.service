@@ -1,0 +1,13 @@
+[Unit]
+Description=PulseAudio Server
+Requires=avahi-daemon.service
+
+[Service]
+Type=forking
+User=pulse
+ExecStart=/usr/bin/pulseaudio --start
+ExecStop=/usr/bin/pulseaudio --kill
+
+
+[Install]
+WantedBy=multi-user.target

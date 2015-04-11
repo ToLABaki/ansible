@@ -1,0 +1,4 @@
+---
+- hosts: pulseaudio_server
+  roles:
+    - pulseaudio

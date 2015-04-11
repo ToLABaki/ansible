@@ -1,0 +1,29 @@
+---
+- name: Install pulseaudio
+  apt: pkg={{item}} state=latest
+  with_items:
+    - pulseaudio
+    - pulseaudio-module-zeroconf
+    - avahi-daemon
+
+- name: Enable avahi-daemon
+  service: name=avahi-daemon enabled=yes
+
+- name: Start avahi-daemon
+  service: name=avahi-daemon state=started
+
+- name: Enable pulseaudio TCP module
+  lineinfile: >
+    dest=/etc/pulse/default.pa
+    line="load-module module-native-protocol-tcp auth-anonymous=1"
+
+- name: Enable pulseaudio zeroconf module
+  lineinfile: >
+    dest=/etc/pulse/default.pa
+    line="load-module module-zeroconf-publish"
+
+- name: Copy pulseaudio.service
+  copy: src=pulseaudio.service dest=/etc/systemd/system/pulseaudio.service
+  notify:
+    - Enable pulseaudio
+    - Start pulseaudio

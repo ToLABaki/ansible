@@ -1,0 +1,6 @@
+---
+- name: Enable pulseaudio
+  service: name=pulseaudio enabled=yes
+
+- name: Start pulseaudio
+  service: name=pulseaudio state=started
