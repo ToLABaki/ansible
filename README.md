@@ -25,7 +25,10 @@ service.
 Please replace `<secret>` in `ldap/files/nslcd.conf` with the actual
 password before deploying.
 
-#To-Do
+# Contributing
 
-* Move configuration files over if needed
-* Apply patch
+Please create a folder for each role and a .yml with the same file,
+e.g., `ldap/` and `ldap.yml`.
+
+A good practice is to check your playbooks with
+[ansible-lint](https://github.com/willthames/ansible-lint).
