@@ -5,15 +5,6 @@
 - stat: path=/usr/local/share/ca-certificates/cacert-class3.crt
   register: class3
 
-- stat: path=/etc/nslcd.conf
-  register: nslcd
-
-- stat: path=/etc/nsswitch.conf
-  register: nsswitch
-
-- stat: path=/etc/idmapd.conf
-  register: idmapd
-
 - name: Install CACert root certificate
   get_url: url=http://www.cacert.org/certs/root.crt dest=/usr/local/share/ca-certificates/cacert-root.crt
   when: not root.stat.exists
