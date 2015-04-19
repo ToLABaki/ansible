@@ -1,0 +1,14 @@
+# This playbook contains the essential programs we should deploy on
+# every machine
+---
+- hosts: all
+  tasks:
+    - name: Install/Update packages
+      apt: pkg={{item}} state=latest
+      sudo: yes
+      with_items:
+        - htop
+        - emacs
+        - vim
+        - iptables
+        - fail2ban
