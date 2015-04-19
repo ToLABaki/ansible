@@ -1,0 +1,44 @@
+---
+# taken from https://github.com/al3x/sovereign
+###############################################################################
+# Variables used when testing with Vagrant
+# For a complete reference look at the `vars/defaults.yml` file.
+###############################################################################
+
+# common
+domain: tolabaki.local
+main_user_name: tolabaki
+encfs_password: testPassword
+friendly_networks:
+  - "172.16.100.0/24"
+
+db_admin_username: mysql
+db_admin_password: mysql
+
+# mailserver
+mail_db_password: testPassword
+mail_virtual_domains:
+  - name: "{{ domain }}"
+    pk_id: 1
+mail_virtual_users:
+  - account: "{{ main_user_name }}"
+    domain: "{{ domain }}"
+    password_hash: "$6$IYJfaF3jvmbAzlSe$1HBkbIdrOTWA31WYon7VSE2xAcFzYSZuVb8d3I0NDWzPxXBaqkHqKs4rLeNO9CVQEKv7wA15QctCyXbdRqFDy." #foo
+    domain_pk_id: 1
+mail_virtual_aliases:
+  - source: "root@{{ domain }}"
+    destination: "{{ admin_email }}"
+    domain_pk_id: 1
+  - source: "postmaster@{{ domain }}"
+    destination: "{{ admin_email }}"
+    domain_pk_id: 1
+  - source: "webmaster@{{ domain }}"
+    destination: "{{ admin_email }}"
+    domain_pk_id: 1
+mail_header_privacy: 1
+
+# owncloud
+owncloud_db_password: testPassword
+
+# webmail
+webmail_db_password: testPassword

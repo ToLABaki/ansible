@@ -1,0 +1,46 @@
+---
+# taken from https://github.com/al3x/sovereign
+###############################################################################
+# Set your variables here.
+# For a complete reference look at the `vars/defaults.yml` file.
+###############################################################################
+
+# common
+domain: TODO.com
+main_user_name: TODO
+encfs_password: TODO
+
+# database
+db_admin_username: TODO
+db_admin_password: TODO
+
+# mailserver
+mail_db_password: TODO
+mail_virtual_domains:
+  - name: "{{ domain }}"
+    pk_id: 1
+#  - name: TODO.com
+#    pk_id: 2
+mail_virtual_users:
+  - account: "{{ main_user_name }}"
+    domain: "{{ domain }}"
+    password_hash: TODO
+    domain_pk_id: 1
+#  - account: "{{ TODO }}"
+#    domain: "{{ domain }}"
+#    password_hash: TODO
+#    domain_pk_id: 2
+mail_virtual_aliases:
+  - source: "root@{{ domain }}"
+    destination: "{{ admin_email }}"
+    domain_pk_id: 1
+  - source: "postmaster@{{ domain }}"
+    destination: "{{ admin_email }}"
+    domain_pk_id: 1
+  - source: "webmaster@{{ domain }}"
+    destination: "{{ admin_email }}"
+    domain_pk_id: 1
+mail_header_privacy: 1
+
+# webmail
+webmail_db_password: TODO
